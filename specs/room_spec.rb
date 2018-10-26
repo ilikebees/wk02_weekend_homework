@@ -24,6 +24,7 @@ class TestRoom < Minitest::Test
 
     @room = Room.new("The Disco Room", guests, playlist)
     @martin = Guests.new("Martin", "I got 5 on it")
+    @song4 = Songs.new("Meat Loaf", "Bat Out Of Hell")
   end
 
   def test_room_has_name
@@ -46,8 +47,10 @@ class TestRoom < Minitest::Test
 
   def test_check_in_guests
     expected = 5
+
     @room.check_in_guest(@martin)
     actual = @room.guests.count
+
     assert_equal(expected, actual)
   end
 
@@ -60,5 +63,12 @@ class TestRoom < Minitest::Test
     assert_equal(expected, actual)
   end
 
+  def test_add_song
+    expected = 4
+    @room.add_song(@song4)
+    actual = @room.playlist.count
+    assert_equal(expected, actual)
 
+
+  end
 end

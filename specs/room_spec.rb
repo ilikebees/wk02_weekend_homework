@@ -68,7 +68,25 @@ class TestRoom < Minitest::Test
     @room.add_song(@song4)
     actual = @room.playlist.count
     assert_equal(expected, actual)
-
-
   end
+
+  def test_room_at_full_capacity__true
+    expected = true
+
+    actual = @room.check_full_capacity
+
+    assert_equal(expected, actual)
+  end
+
+  def test_room_at_full_capacity__false
+    expected = false
+
+    @room.check_out_guest(@ali)
+    actual = @room.check_full_capacity
+
+    assert_equal(expected, actual)
+  end
+
+
+
 end

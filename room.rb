@@ -23,17 +23,17 @@ class Room
 
   def check_full_capacity
     if @capacity > @guests.count
-      return false
+      return false #not full
     else
-      return true
+      return true #full
     end
   end
 
   def check_in_if_capacity_is_not_full(name)
-    if @capacity < @guests.count
+    if @capacity > @guests.count
       @guests << name
     else
-      return false
+      return true
     end
   end
 

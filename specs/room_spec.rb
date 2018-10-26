@@ -17,7 +17,7 @@ class TestRoom < Minitest::Test
     guests = [@ali, @hamish, @nicola, @giles]
 
     song1 = Songs.new("Warren G", "Regulate")
-    song2 = Songs.new("Join the Dots", "Roots Manuva")
+    song2 = Songs.new("Roots Manuva", "Join the Dots")
     song3 = Songs.new("Dr Dre", "Bang Bang")
 
     playlist = [song1, song2, song3]
@@ -87,11 +87,9 @@ class TestRoom < Minitest::Test
     assert_equal(expected, actual)
   end
 
-  def test_check_in_if_capacity_is_not_full
-    expected = false
-    actual = @room.check_in_if_capacity_is_not_full(@martin)
-    assert_equal(expected, actual)
-  end
+  # def test_check_in_if_capacity_is_not_full
+  #
+  # end
 
 
 end

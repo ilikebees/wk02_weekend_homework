@@ -29,8 +29,12 @@ class Room
     end
   end
 
-
-
-
+  def check_in_if_capacity_is_not_full(name)
+    if @capacity < @guests.count
+      @guests << name
+    else
+      return false
+    end
+  end
 
 end

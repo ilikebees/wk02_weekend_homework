@@ -87,9 +87,12 @@ class TestRoom < Minitest::Test
     assert_equal(expected, actual)
   end
 
-  # def test_check_in_if_capacity_is_not_full
-  #
-  # end
+  def test_check_in_if_capacity_is_not_full
+  expected = 4
+  @room.check_out_guest(@ali)
+  actual = @room.check_in_if_capacity_is_not_full(@ali).count
+  assert_equal(expected, actual)
+  end
 
 
 end

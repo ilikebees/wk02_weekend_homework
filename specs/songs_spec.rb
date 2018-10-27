@@ -5,16 +5,10 @@ require_relative('../songs')
 class TestSongs < Minitest::Test
 
   def setup
-    @song = Songs.new("Olivia Newton-John", "Xanadu")
+    @song = Songs.new("Xanadu")
   end
 
-  def test_song_has_artist
-    expected = "Olivia Newton-John"
-    actual = @song.artist
-    assert_equal(expected, actual)
-  end
-
-
+  
   def test_song_has_title
     expected = "Xanadu"
     actual = @song.title

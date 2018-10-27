@@ -9,22 +9,22 @@ class TestRoom < Minitest::Test
 
   def setup
 
-    @ali = Guests.new("Ali", "Can I Kick It?")
-    @hamish = Guests.new("Hamish", "Express Yourself")
-    @nicola = Guests.new("Nicola", "Shoop")
-    @giles = Guests.new("Giles", "Don't Stop Moving")
+    @ali = Guests.new("Ali", "Can I Kick It?", 20.00)
+    @hamish = Guests.new("Hamish", "Regulate", 10.50)
+    @nicola = Guests.new("Nicola", "Shoop", 3.90)
+    @giles = Guests.new("Giles", "Don't Stop Moving", 30.00)
 
     guests = [@ali, @hamish, @nicola, @giles]
 
-    song1 = Songs.new("Warren G", "Regulate")
-    song2 = Songs.new("Roots Manuva", "Join the Dots")
-    song3 = Songs.new("Dr Dre", "Bang Bang")
+    song1 = Songs.new("Regulate")
+    song2 = Songs.new("Join the Dots")
+    song3 = Songs.new("Bang Bang")
 
     playlist = [song1, song2, song3]
 
     @room = Room.new("The Disco Room", guests, playlist)
-    @martin = Guests.new("Martin", "I got 5 on it")
-    @song4 = Songs.new("Meat Loaf", "Bat Out Of Hell")
+    @martin = Guests.new("Martin", "I got 5 on it", 8.00)
+    @song4 = Songs.new("Bat Out Of Hell")
   end
 
   def test_room_has_name
@@ -70,20 +70,22 @@ class TestRoom < Minitest::Test
     assert_equal(expected, actual)
   end
 
+  def test_room_has_capacity
+    expected = 4
+    actual = @room.capacity
+    assert_equal(expected, actual)
+  end
+
   def test_room_at_full_capacity__true
     expected = true
-
     actual = @room.check_full_capacity
-
     assert_equal(expected, actual)
   end
 
   def test_room_at_full_capacity__false
     expected = false
-
     @room.check_out_guest(@ali)
     actual = @room.check_full_capacity
-
     assert_equal(expected, actual)
   end
 
@@ -93,6 +95,70 @@ class TestRoom < Minitest::Test
   actual = @room.check_in_if_capacity_is_not_full(@ali).count
   assert_equal(expected, actual)
   end
+
+  def test_room_has_entry_fee
+    expected = 5.00
+    actual = @room.entry_fee
+    assert_equal(expected, actual)
+  end
+
+  def test_guest_has_entry_fee__true
+    expected = true
+    actual = @room.guest_has_entry_fee(@martin)
+    assert_equal(expected, actual)
+  end
+
+  def test_guest_has_entry_fee__false
+    expected = false
+    actual = @room.guest_has_entry_fee(@nicola)
+    assert_equal(expected, actual)
+  end
+
+  def test_remove_entry_fee_from_wallet
+    expected = 5.50
+    actual = @room.remove_entry_fee_from_wallet(@hamish)
+    assert_equal(expected, actual)
+  end
+
+  def test_add_entry_fee_to_till__sufficient_funds
+    expected = 5.00
+    actual = @room.add_entry_fee_to_till(@hamish)
+    assert_equal(expected, actual)
+  end
+
+  def test_guest_has_favourite_song
+    expected = "Regulate"
+    actual = @room.guest_has_favourite_song(@hamish)
+    assert_equal(expected, actual)
+  end
+
+  def test_guests_favourite_song_on_playlist
+    expected = "Wooo!"
+    actual = @room.guest_favourite_song_on_playlist(@hamish)
+    assert_equal(expected, actual)
+  end
+
+  # def test_room_has_bar_tab
+  #   expected = 0
+  #
+  #   actual = @room.bar_tab
+  #   assert_equal(expected, actual)
+  # end
+  #
+  # def test_add_entry_fee_to_bar_tab
+  #   expected = 5.00
+  #   actual = @room.add_entry_fee_to_bar_tab(@ali)
+  #   assert_equal(expected, actual)
+  # end
+  #
+  # def test_remove_entry_fee_from_bar_tab
+  #   expected = -3.00
+  #   actual = @room.remove_entry_fee_from_bar_tab(3.00)
+  #   assert_equal(expected, actual)
+  # end
+
+
+
 
 
 end
